@@ -21,9 +21,23 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setExposeContextBeansAsAttributes(true);
         return resolver;
     }
-
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

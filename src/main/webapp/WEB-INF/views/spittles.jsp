@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="false" %>
 <html>
 <head>
@@ -14,6 +15,7 @@
     <li id="spittle_<c:out value="spittle.id"/>">
         <div class="spittleMessage">
             <c:out value="${spittle.message}"/>
+            <c:out value="Gellp" />
         </div>
         <div>
             <span class="spittleTime"><c:out value="${spittle.time}"/></span>
@@ -23,6 +25,5 @@
         </div>
     </li>
     </c:forEach>
-
 </body>
 </html>

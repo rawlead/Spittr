@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.util.Date;
 
 public class Spittle {
+
     private final Long id;
     private final String message;
     private final Date time;
@@ -13,11 +14,11 @@ public class Spittle {
     private Double longitude;
 
     public Spittle(String message, Date time) {
-        this(message, time, 0.0, 0.0);
+        this(message, time, null, null);
     }
 
     public Spittle(String message, Date time, Double longitude, Double latitude) {
-        this.id = 0L;
+        this.id = null;
         this.message = message;
         this.time = time;
         this.latitude = latitude;
@@ -53,4 +54,5 @@ public class Spittle {
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this, "id", "time");
     }
+
 }
