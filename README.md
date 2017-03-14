@@ -3,6 +3,6 @@
 Made with Spring MVC and completely configured in Java<br>
 At the current moment has: <br>
 -configs: root, web, initializer(dispacher servlet) <br>
-1)Views: home, spittles <br>
-2)Controllers: HomeController, SpittleController <br>
-3)Data: SpittleRepository(an interface with one method with no implementers) <br>
+1)Views: home, spittles, spittle, profile, registerForm <br>
+2)Controllers: HomeController, SpittleController, SpitterController <br>
+3)Data: SpittleRepository, SpitterRepository <br>
