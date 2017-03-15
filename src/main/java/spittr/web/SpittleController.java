@@ -33,6 +33,7 @@ public class SpittleController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Spittle> spittles(@RequestParam(value = "max", defaultValue = MAX_LONG_AS_STRING) long max,
                                   @RequestParam(value = "count", defaultValue = "20") int count) {
-        return spittleRepository.findSpitles(max, count);
+
+       return spittleRepository.findSpitles(max, count);
     }
 }

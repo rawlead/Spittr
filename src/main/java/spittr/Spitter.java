@@ -3,12 +3,11 @@ package spittr;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Spitter {
-
-    private Long id;
 
     @NotNull
     @Size(min = 5, max = 16)
@@ -26,26 +25,18 @@ public class Spitter {
     @Size(min = 2, max = 30)
     private String lastName;
 
-
-
     public Spitter() {
     }
 
     public Spitter(Long id, String username, String password, String firstName, String lastName) {
         this(username, password, firstName, lastName);
-        this.id = id;
     }
 
     public Spitter(String username, String password, String firstName, String lastName) {
-        this.id = null;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getFirstName() {
@@ -64,10 +55,6 @@ public class Spitter {
         return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -82,6 +69,15 @@ public class Spitter {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "username: " + username +
+                " password: " + password +
+                " first name: " + firstName +
+                " last name: " + lastName;
+
     }
 
     @Override

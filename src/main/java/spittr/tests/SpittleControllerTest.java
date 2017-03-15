@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.servlet.view.InternalResourceView;
 import spittr.Spittle;
@@ -19,9 +21,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SpittleControllerTest {
 
-//    path variable for single spittle
+    //    path variable for single spittle
     @Test
     public void testSpittle() throws Exception {
         Spittle expectedSpittle = new Spittle("Hello", new Date());
@@ -33,15 +36,15 @@ public class SpittleControllerTest {
         mockMvc.perform(get("/spittles/12345"))
                 .andExpect(view().name("spittle"))
                 .andExpect(model().attributeExists("spittle"))
-                .andExpect(model().attribute("spittle",expectedSpittle));
+                .andExpect(model().attribute("spittle", expectedSpittle));
     }
 
-//    Taking query parameters
+    //  Taking query parameters
     @Test
     public void shouldShowPagedSpittles() throws Exception {
         List<Spittle> expectedSpittles = createSpittleList(50);
         SpittleRepository mockRepository = mock(SpittleRepository.class);
-        when(mockRepository.findSpitles(238900, 50)).thenReturn(expectedSpittles);
+        when(mockRepository.findSpitles(238900L, 50)).thenReturn(expectedSpittles);
 
         SpittleController controller = new SpittleController(mockRepository);
         MockMvc mockMvc = standaloneSetup(controller).setSingleView(
@@ -53,7 +56,7 @@ public class SpittleControllerTest {
                         hasItems(expectedSpittles.toArray())));
     }
 
-    //test spittles without paging
+    //  test spittles without paging
     @Test
     public void shouldShowRecentSpittles() throws Exception {
         List<Spittle> expectedSpittles = createSpittleList(20);

@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.test.web.servlet.MockMvc;
 import spittr.Spitter;
+import spittr.daoimpl.SpitterRepositoryImpl;
 import spittr.data.SpitterRepository;
+import spittr.data.SpittleRepository;
 import spittr.web.SpitterController;
 
 
@@ -17,12 +19,13 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 public class SpitterControllerTest {
 
+
     @Test
     public void shouldProcessRegistration() throws Exception {
         SpitterRepository mockRepository = mock(SpitterRepository.class);
         Spitter unsaved = new Spitter("jbauer", "24hours", "Jack", "Bauer");
         Spitter saved = new Spitter(24L, "jbauer", "24hours", "Jack", "Bauer");
-        when(mockRepository.save(unsaved)).thenReturn(saved);
+       // when(mockRepository.save(unsaved)).thenReturn(saved);
         SpitterController controller = new SpitterController(mockRepository);
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(post("/spitter/register")
@@ -38,7 +41,7 @@ public class SpitterControllerTest {
 
     @Test
     public void shouldShowRegistration() throws Exception {
-        SpitterController controller = new SpitterController();
+        SpitterController controller = new SpitterController(new SpitterRepositoryImpl());
         MockMvc mockMvc = standaloneSetup(controller).build();
         mockMvc.perform(get("/spitter/register"))
                 .andExpect(view().name("registerForm"));
