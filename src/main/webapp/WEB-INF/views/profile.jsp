@@ -8,8 +8,8 @@
 </head>
 <body>
 <h1>Your profile</h1>
-<c:out value="${spitter.username}" /> <br/>
-<c:out value="${spitter.firstName}" />
-    <c:out value="${spitter.lastName}" />
+<h3><c:out value="${spitter.username}"/></h3>
+<p><c:out value="${spitter.email}"/></p>
+<p><c:out value="${spitter.firstName}"/> <c:out value="${spitter.lastName}"/></p>
 </body>
 </html>

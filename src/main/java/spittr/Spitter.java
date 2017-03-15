@@ -2,6 +2,7 @@ package spittr;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
@@ -18,6 +19,10 @@ public class Spitter {
     private String password;
 
     @NotNull
+    @Email
+    private String email;
+
+    @NotNull
     @Size(min = 2, max = 30)
     private String firstName;
 
@@ -28,15 +33,24 @@ public class Spitter {
     public Spitter() {
     }
 
-    public Spitter(Long id, String username, String password, String firstName, String lastName) {
-        this(username, password, firstName, lastName);
+    public Spitter(Long id, String username, String password, String email, String firstName, String lastName) {
+        this(username, password, email, firstName, lastName);
     }
 
-    public Spitter(String username, String password, String firstName, String lastName) {
+    public Spitter(String username, String password, String email, String firstName, String lastName) {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {

@@ -35,25 +35,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
          /* configure static content handling */
         configurer.enable();
     }
-
-//     spittle
-
-//    @Bean
-//    public SpittleRepository spittleRepository() {
-//        return new SpittleRepositoryImpl();
-//    }
-
-//    @Bean
-//    public SpittleController spittleController(SpittleRepository spittleRepository) {
-//        return new SpittleController(spittleRepository);
-//    }
-//
-//    //spitter
-//    @Bean
-//    public SpitterRepository spitterRepository() {
-//        return new SpitterRepositoryImpl();
-//    }
-
 }
 
 
