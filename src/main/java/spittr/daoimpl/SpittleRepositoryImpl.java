@@ -12,7 +12,7 @@ public class SpittleRepositoryImpl implements SpittleRepository {
     private Map<Long, Spittle> spittles;
 
     public SpittleRepositoryImpl() {
-        spittles = new HashMap<Long, Spittle>();
+        spittles = new TreeMap<Long, Spittle>();
         for (int i = 1; i <= 25; i++) {
             Spittle spittle = new Spittle("Spittle " + i, new Date());
             spittles.put((long)i, spittle);
@@ -20,7 +20,11 @@ public class SpittleRepositoryImpl implements SpittleRepository {
     }
 
     public List<Spittle> findSpitles(long max, int count) {
-        List<Spittle> spittleList = new ArrayList<Spittle>(spittles.values());
+        List<Spittle> spittleList = new LinkedList<Spittle>();
+        for (int i = 0; i < count; i++) {
+            spittleList.add(spittles.get(max));
+            max--;
+        }
         return spittleList;
     }
 

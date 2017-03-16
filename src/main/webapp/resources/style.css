@@ -1,0 +1,20 @@
+.error {
+    color: orangered;
+}
+
+.homeNav {
+    font-size: large;
+}
+
+div.errors {
+    background-color: #ffcccc;
+    border: 2px solid orangered;
+}
+
+.registerFields {
+    font-size: large;
+}
+
+.registerFields input {
+    font-size: large;
+}
