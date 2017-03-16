@@ -26,14 +26,14 @@ import spittr.web.SpittleController;
 @ComponentScan(basePackages = {"spittr"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-        resolver.setExposeContextBeansAsAttributes(true);
-        return resolver;
-    }
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/views/");
+//        resolver.setSuffix(".jsp");
+//        resolver.setExposeContextBeansAsAttributes(true);
+//        return resolver;
+//    }
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -49,7 +49,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         messageSource.setBasename("messages");
         return messageSource;
     }
-
+    // uses Apache tiles layout
+    @Bean
+    public ViewResolver viewResolver() {
+        return new TilesViewResolver();
+    }
 //Apache Tiles 3 layouts
     @Bean
     public TilesConfigurer tilesConfigurer() {
@@ -58,10 +62,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         tiles.setCheckRefresh(true);
         return tiles;
     }
-    @Bean
-    public ViewResolver tilesViewResolver() {
-        return new TilesViewResolver();
-    }
+
 
 //    external source
 //    @Bean
