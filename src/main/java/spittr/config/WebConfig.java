@@ -12,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import spittr.daoimpl.SpitterRepositoryImpl;
 import spittr.daoimpl.SpittleRepositoryImpl;
 import spittr.data.SpitterRepository;
@@ -39,6 +41,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
+    //    s:message from property files
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource =
@@ -47,7 +50,18 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return messageSource;
     }
 
-
+//Apache Tiles 3 layouts
+    @Bean
+    public TilesConfigurer tilesConfigurer() {
+        TilesConfigurer tiles = new TilesConfigurer();
+        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
+        tiles.setCheckRefresh(true);
+        return tiles;
+    }
+    @Bean
+    public ViewResolver tilesViewResolver() {
+        return new TilesViewResolver();
+    }
 
 //    external source
 //    @Bean
