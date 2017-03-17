@@ -14,27 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
-import spittr.daoimpl.SpitterRepositoryImpl;
-import spittr.daoimpl.SpittleRepositoryImpl;
-import spittr.data.SpitterRepository;
-import spittr.data.SpittleRepository;
-import spittr.web.SpittleController;
 
 @Configuration
 @EnableWebMvc
-//@EnableJpaRepositories("spittr.data")
 @ComponentScan(basePackages = {"spittr"})
 public class WebConfig extends WebMvcConfigurerAdapter {
-
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
-//        resolver.setSuffix(".jsp");
-//        resolver.setExposeContextBeansAsAttributes(true);
-//        return resolver;
-//    }
-
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
          /* configure static content handling */
@@ -54,7 +38,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public ViewResolver viewResolver() {
         return new TilesViewResolver();
     }
-//Apache Tiles 3 layouts
+    //Apache Tiles 3 layouts
     @Bean
     public TilesConfigurer tilesConfigurer() {
         TilesConfigurer tiles = new TilesConfigurer();
@@ -62,6 +46,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         tiles.setCheckRefresh(true);
         return tiles;
     }
+
+//    jsp views without layout
+    //    @Bean
+//    public ViewResolver viewResolver() {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setPrefix("/WEB-INF/views/");
+//        resolver.setSuffix(".jsp");
+//        resolver.setExposeContextBeansAsAttributes(true);
+//        return resolver;
 
 
 //    external source

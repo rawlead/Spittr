@@ -1,12 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css"/>">
-    <title>Spitter</title>
-</head>
-<body>
 <h1>Register</h1>
 <sf:form method="POST" commandName="spitter" cssClass="registerFields">
     <sf:errors path="*" element="div" cssClass="errors" />
@@ -28,5 +21,3 @@
 
     <input type="submit" value="Register"/> <br/>
 </sf:form>
-</body>
-</html>
