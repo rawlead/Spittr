@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spittr.Spitter;
 import spittr.data.SpitterRepository;
 
@@ -38,17 +39,24 @@ public class SpitterController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processRegistration(
             /*@RequestPart("profilePicture") byte[] profilePicture,*/
-            @Valid Spitter spitter, Errors errors) {
+            @Valid Spitter spitter, Errors errors, RedirectAttributes model) {
         if (errors.hasErrors())
             return "registerForm";
         spitterRepository.save(spitter);
-        return "redirect:/spitter/" + spitter.getUsername();
+        model.addAttribute("username", spitter.getUsername());
+        // attribute survive redirect and after session finished disappear with flash attribute
+        model.addFlashAttribute("spitter", spitter);
+        return "redirect:/spitter/{username}"; // alternative: + spitter.getUsername();
     }
+
+
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public String showSpitterProfile(@PathVariable("username") String username, Model model) {
-        Spitter spitter = spitterRepository.findByUsername(username);
-        model.addAttribute(spitter);
+        // after session ends add attribute to a model again
+        if (!model.containsAttribute("spitter")) {
+            model.addAttribute(spitterRepository.findByUsername(username));
+        }
         return "profile";
     }
 }
