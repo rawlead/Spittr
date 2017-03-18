@@ -14,6 +14,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolution;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @EnableWebMvc
@@ -34,18 +40,54 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return messageSource;
     }
     // uses Apache tiles layout
-    @Bean
-    public ViewResolver viewResolver() {
-        return new TilesViewResolver();
-    }
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        return new TilesViewResolver();
+//    }
     //Apache Tiles 3 layouts
+//    @Bean
+//    public TilesConfigurer tilesConfigurer() {
+//        TilesConfigurer tiles = new TilesConfigurer();
+//        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
+//        tiles.setCheckRefresh(true);
+//        return tiles;
+//    }
+
+//    --THYMELEAF----------------------------------------------
+//    resolves Thymeleaf template views from logical view names
     @Bean
-    public TilesConfigurer tilesConfigurer() {
-        TilesConfigurer tiles = new TilesConfigurer();
-        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
-        tiles.setCheckRefresh(true);
-        return tiles;
+    public ViewResolver viewResolver(TemplateEngine templateEngine) {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine((SpringTemplateEngine) templateEngine);
+        return viewResolver;
     }
+//    process the templates and render the results
+    @Bean
+    public TemplateEngine templateEngine(TemplateResolver templateResolver) {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+        return templateEngine;
+    }
+
+    //    loads Thymeleaf templates
+    @Bean
+    public TemplateResolver templateResolver() {
+        TemplateResolver templateResolver = new ServletContextTemplateResolver();
+        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML5");
+        return templateResolver;
+    }
+
+
+
+
+
+
+
+
+
+
 
 //    jsp views without layout
     //    @Bean
