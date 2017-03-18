@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Profile</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h1>Your profile</h1>
+<h3><span th:text="#{spittr.welcome}"></span>, <span th:text="${spitter.username}">username</span>!</h3>
+<h4>Your data:</h4>
+<table>
+    <tr>
+        <td>First Name: </td>
+        <td th:text="${spitter.firstName}">firstName</td>
+    </tr>
+    <tr>
+        <td>Last Name: </td>
+        <td th:text="${spitter.lastName}">lastName</td>
+    </tr>
+    <tr>
+        <td>Email: </td>
+        <td th:text="${spitter.email}">email</td>
+    </tr>
+</table>
+</body>
+</html>

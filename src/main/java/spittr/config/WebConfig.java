@@ -1,5 +1,8 @@
 package spittr.config;
 
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,22 +19,31 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolution;
-import org.thymeleaf.templateresolver.TemplateResolver;
+
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"spittr"})
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+    private ApplicationContext applicationContext;
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
          /* configure static content handling */
         configurer.enable();
     }
-
-    //    s:message from property files
+//
+//    //    s:message from property files
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource =
@@ -40,18 +52,18 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return messageSource;
     }
     // uses Apache tiles layout
-    @Bean
-    public ViewResolver viewResolver() {
-        return new TilesViewResolver();
-    }
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        return new TilesViewResolver();
+//    }
 //    Apache Tiles 3 layouts
-    @Bean
-    public TilesConfigurer tilesConfigurer() {
-        TilesConfigurer tiles = new TilesConfigurer();
-        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
-        tiles.setCheckRefresh(true);
-        return tiles;
-    }
+//    @Bean
+//    public TilesConfigurer tilesConfigurer() {
+//        TilesConfigurer tiles = new TilesConfigurer();
+//        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
+//        tiles.setCheckRefresh(true);
+//        return tiles;
+//    }
 
 //    --THYMELEAF----------------------------------------------
 //    resolves Thymeleaf template views from logical view names
@@ -79,6 +91,30 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //        return templateResolver;
 //    }
 
+    @Bean
+    public ViewResolver viewResolver() {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
+        return resolver;
+    }
+
+    @Bean
+    public TemplateEngine templateEngine() {
+        SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.setEnableSpringELCompiler(true);
+        engine.setTemplateResolver(templateResolver());
+        return engine;
+    }
+
+    private ITemplateResolver templateResolver() {
+        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(applicationContext);
+        resolver.setPrefix("/WEB-INF/templates/");
+        resolver.setSuffix(".html");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        return resolver;
+    }
 
 
 
