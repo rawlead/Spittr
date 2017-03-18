@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <s:url value="/spitter/register" var="registerUrl" scope="request" />
-<s:url value="/spittles" var="spittlesUrl" htmlEscape="true">
+<s:url value="/spittles" var="spittlesUrl">
     <s:param name="max" value="24" />
     <s:param name="count" value="14" />
 </s:url>

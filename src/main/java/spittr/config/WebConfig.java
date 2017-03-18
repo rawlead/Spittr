@@ -40,50 +40,44 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return messageSource;
     }
     // uses Apache tiles layout
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        return new TilesViewResolver();
-//    }
-    //Apache Tiles 3 layouts
-//    @Bean
-//    public TilesConfigurer tilesConfigurer() {
-//        TilesConfigurer tiles = new TilesConfigurer();
-//        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
-//        tiles.setCheckRefresh(true);
-//        return tiles;
-//    }
+    @Bean
+    public ViewResolver viewResolver() {
+        return new TilesViewResolver();
+    }
+//    Apache Tiles 3 layouts
+    @Bean
+    public TilesConfigurer tilesConfigurer() {
+        TilesConfigurer tiles = new TilesConfigurer();
+        tiles.setDefinitions(new String[]{"/WEB-INF/layout/tiles.xml"});
+        tiles.setCheckRefresh(true);
+        return tiles;
+    }
 
 //    --THYMELEAF----------------------------------------------
 //    resolves Thymeleaf template views from logical view names
-    @Bean
-    public ViewResolver viewResolver(TemplateEngine templateEngine) {
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine((SpringTemplateEngine) templateEngine);
-        return viewResolver;
-    }
-//    process the templates and render the results
-    @Bean
-    public TemplateEngine templateEngine(TemplateResolver templateResolver) {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver);
-        return templateEngine;
-    }
-
-    //    loads Thymeleaf templates
-    @Bean
-    public TemplateResolver templateResolver() {
-        TemplateResolver templateResolver = new ServletContextTemplateResolver();
-        templateResolver.setPrefix("/WEB-INF/templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
-        return templateResolver;
-    }
-
-
-
-
-
-
+//    @Bean
+//    public ViewResolver viewResolver(TemplateEngine templateEngine) {
+//        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+//        viewResolver.setTemplateEngine((SpringTemplateEngine) templateEngine);
+//        return viewResolver;
+//    }
+////    process the templates and render the results
+//    @Bean
+//    public TemplateEngine templateEngine(TemplateResolver templateResolver) {
+//        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+//        templateEngine.setTemplateResolver(templateResolver);
+//        return templateEngine;
+//    }
+//
+//    //    loads Thymeleaf templates
+//    @Bean
+//    public TemplateResolver templateResolver() {
+//        TemplateResolver templateResolver = new ServletContextTemplateResolver();
+//        templateResolver.setPrefix("/WEB-INF/templates/");
+//        templateResolver.setSuffix(".html");
+//        templateResolver.setTemplateMode("HTML5");
+//        return templateResolver;
+//    }
 
 
 
