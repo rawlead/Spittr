@@ -1,17 +1,14 @@
-package spittr;
+package spittr.web;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
+import spittr.Spitter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Spitter {
-
-    private Long id;
-
+public class SpitterForm {
     @NotNull
     @Size(min = 2, max = 30, message = "{firstName.size}")
     private String firstName;
@@ -32,30 +29,14 @@ public class Spitter {
     @Size(min = 5, max = 25, message = "{password.size}")
     private String password;
 
+    private MultipartFile profilePicture;
 
-
-    public Spitter() {
+    public MultipartFile getProfilePicture() {
+        return profilePicture;
     }
 
-    public Spitter(String username, String password, String email, String firstName, String lastName) {
-        this(null,username, password, email, firstName, lastName);
-    }
-
-    public Spitter(Long id, String username, String password, String email, String firstName, String lastName) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setProfilePicture(MultipartFile profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public String getEmail() {
@@ -97,23 +78,17 @@ public class Spitter {
     public void setPassword(String password) {
         this.password = password;
     }
-//
-//    @Override
-//    public String toString() {
-//        return "username: " + username +
-//                " password: " + password +
-//                " first name: " + firstName +
-//                " last name: " + lastName;
-//
-//    }
 
     @Override
-    public boolean equals(Object that) {
-        return EqualsBuilder.reflectionEquals(this, that, "username", "password", "email", "firstName", "lastName");
+    public String toString() {
+        return "username: " + username +
+                " password: " + password +
+                " first name: " + firstName +
+                " last name: " + lastName;
+
     }
 
-    @Override
-    public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this, "username", "password", "email", "firstName", "lastName");
+    public Spitter toSpitter() {
+        return new Spitter(username,password,email,firstName,lastName);
     }
 }

@@ -1,5 +1,6 @@
 package spittr.web;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spittr.Spitter;
 import spittr.data.SpitterRepository;
 
-import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 @Controller
@@ -39,10 +40,21 @@ public class SpitterController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processRegistration(
             /*@RequestPart("profilePicture") byte[] profilePicture,*/
-            @Valid Spitter spitter, Errors errors, RedirectAttributes model) {
+            @Valid SpitterForm spitterForm, Errors errors, RedirectAttributes model) throws IllegalStateException,IOException {
+
+        System.out.println("before founding errors");
+
         if (errors.hasErrors())
             return "registerForm";
+
+        System.out.println("found no erroes");
+
+        Spitter spitter = spitterForm.toSpitter();
         spitterRepository.save(spitter);
+
+        MultipartFile profilePicture = spitterForm.getProfilePicture();
+        profilePicture.transferTo(new File("/uploads/" + spitter.getUsername() + ".jpg"));
+
         model.addAttribute("username", spitter.getUsername());
         // attribute survive redirect and after session finished disappear with flash attribute
         model.addFlashAttribute("spitter", spitter);

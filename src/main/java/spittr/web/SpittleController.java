@@ -40,14 +40,19 @@ public class SpittleController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String saveSpittle(Spittle spittle, Model model) {
+    public String saveSpittle(SpittleForm form, Model model) {
         try {
-            spittleRepository.save(new Spittle(spittle.getMessage(),new Date(),
-                    spittle.getLongitude(),spittle.getLatitude()));
+            spittleRepository.save(new Spittle(null,form.getMessage(),new Date(),
+                    form.getLongitude(),form.getLatitude()));
             return "redirect:/spittles";
         } catch (DuplicateSpittleException e) {
             return "error/duplicate";
         }
+    }
+
+    @ExceptionHandler(DuplicateSpittleException.class)
+    public String handlNotFound() {
+        return "error/duplicate";
     }
 
 }

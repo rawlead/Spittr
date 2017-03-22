@@ -1,4 +1,4 @@
-package spittr.tests;
+package spittr;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.mockito.Mockito.mock;
