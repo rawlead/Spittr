@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/resources/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/resources/css/style.css}"/>
+    <script src="webjars/jquery/3.1.1-1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:fragment="navfragment">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--<a class="navbar-brand" href="/resources/images/logo.jpg"><img id="logo" src="/resources/images/logo.jpg"></a>-->
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="#" class="navbar-left"><img src="/resources/images/logo.gif" id="logo"></a></li>
+                <li><a th:href="@{/}">Home</a></li> <!--class="active"-->
+                <li><a th:href="@{/spittles}">Spittles</a></li>
+                <li><a th:href="@{/spitter/register}">Register</a></li>
+                <li><a href="#">Spitter</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+
+<div>Content</div>
+
+<div th:fragment="footfragment">
+    <footer class="container-fluid text-center">
+        <p>Copyright &copy; Ivan Shyrai</p>
+    </footer>
+</div>
+</body>
+</html>

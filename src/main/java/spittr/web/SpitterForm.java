@@ -25,8 +25,8 @@ public class SpitterForm {
     @Size(min=2, max=30, message="{lastName.size}")
     private String lastName;
 
-    @NotNull
-    @Email
+    @NotEmpty(message = "{email.empty}")
+    @Email(message = "{email.valid}")
     private String email;
 
     public SpitterForm() {
