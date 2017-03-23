@@ -4,13 +4,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Spitter {
-
-    private Long id;
 
     @NotNull
     @Size(min = 2, max = 30, message = "{firstName.size}")
@@ -32,10 +31,9 @@ public class Spitter {
     @Size(min = 5, max = 25, message = "{password.size}")
     private String password;
 
+    private Long id;
 
 
-    public Spitter() {
-    }
 
     public Spitter(String username, String password, String email, String firstName, String lastName) {
         this(null,username, password, email, firstName, lastName);

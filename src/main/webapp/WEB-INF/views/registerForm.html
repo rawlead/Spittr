@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Register</title>
     <link rel="stylesheet" type="text/css"
@@ -6,34 +6,39 @@
 </head>
 <body>
 <h1>Register</h1>
-<form method="POST" th:object="${spitter}" enctype="multipart/form-data"> <!--enctype="multipart/form-data"-->
+
+<form method="POST" th:object="${spitterForm}" enctype="multipart/form-data">
     <div class="errors" th:if="${#fields.hasErrors('*')}">
         <ul>
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Input is incorrect</li>
         </ul>
     </div>
-    <!--first name-->
-    <label th:class="${#fields.hasErrors('firstName')}? 'error'" >First Name</label>:
-    <input type="text" th:field="*{firstName}" th:class="${#fields.hasErrors('firstName')}? 'error'"/> <br/>
-    <!--last name-->
-    <label th:class="${#fields.hasErrors('lastName')}? 'error'" >Last Name</label>:
-    <input type="text" th:field="*{lastName}" th:class="${#fields.hasErrors('lastName')}? 'error'" /> <br/>
-    <!--email-->
-    <label th:class="${#fields.hasErrors('email')}? 'error'" >Email</label>:
-    <input type="email" th:field="*{email}" th:class="${#fields.hasErrors('email')}? 'error'" /> <br/>
-    <!--username-->
-    <label th:class="${#fields.hasErrors('username')}? 'error'" >Username</label>:
-    <input type="text" th:field="*{username}" th:class="${#fields.hasErrors('username')}? 'error'" /> <br/>
-    <!--password-->
-    <label th:class="${#fields.hasErrors('password')}? 'error'" >Password</label>:
-    <input type="password" th:field="*{password}" th:class="${#fields.hasErrors('password')}? 'error'" /> <br/>
+    <label th:class="${#fields.hasErrors('firstName')}? 'error'">First Name</label>:
+    <input type="text" th:field="*{firstName}"
+           th:class="${#fields.hasErrors('firstName')}? 'error'" /><br/>
 
-    <!--profile picture upload-->
+    <label th:class="${#fields.hasErrors('lastName')}? 'error'">Last Name</label>:
+    <input type="text" th:field="*{lastName}"
+           th:class="${#fields.hasErrors('lastName')}? 'error'" /><br/>
+
+    <label th:class="${#fields.hasErrors('email')}? 'error'">Email</label>:
+    <input type="text" th:field="*{email}"
+           th:class="${#fields.hasErrors('email')}? 'error'" /><br/>
+
+    <label th:class="${#fields.hasErrors('username')}? 'error'">Username</label>:
+    <input type="text" th:field="*{username}"
+           th:class="${#fields.hasErrors('username')}? 'error'" /><br/>
+
+    <label th:class="${#fields.hasErrors('password')}? 'error'">Password</label>:
+    <input type="password" th:field="*{password}"
+           th:class="${#fields.hasErrors('password')}? 'error'" /><br/>
+
     <label>Profile Picture</label>:
-    <input type="file" name="profilePicture"
-           accept="image/jpeg,image/png,image/gif" /> <br/>
+    <input type="file"
+           name="profilePicture"
+           accept="image/jpeg,image/png,image/gif" /><br/>
 
-    <!--register button-->
     <input type="submit" value="Register" />
 </form>
 </body>
