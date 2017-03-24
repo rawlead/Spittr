@@ -41,6 +41,7 @@ public class SpitterForm {
         this.profilePicture = profilePicture;
     }
 
+    @NotNull
     private MultipartFile profilePicture;
 
     public String getUsername() {
